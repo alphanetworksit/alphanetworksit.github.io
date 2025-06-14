@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Recommended PC</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All PCs</a></li>
+            <li><a href="quiz.html">PC Recommendation</a></li>
+            <li><a href="Gaming PCs.html">Gaming PCs</a></li>
+            <li><a href="Workstation PCs.html">Workstation PCs</a></li>
+            <li><a href="Budgets PCs.html">Budget PCs</a></li>
+            <li><a href="cart.html">My Cart</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="result-container">
+    <h2>Your Recommended PC:</h2>
+    <div id="recommendedPC"></div>
+    <p>Storage Needed: <span id="storage"></span></p>
+</section>
+
+<script>
+    function getUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return {
+            recommendedPC: urlParams.get('recommendedPC'),
+            storage: urlParams.get('storage')
+        };
+    }
+
+    function addToCart() {
+        alert("PC added to cart!");
+        // Add logic to add the PC to the cart here
+    }
+
+    function viewDetails() {
+        alert("Viewing details of the recommended PC.");
+        // Add logic to view PC details here
+    }
+
+    window.onload = function() {
+        const { recommendedPC, storage } = getUrlParams();
+        document.getElementById('recommendedPC').textContent = recommendedPC;
+        document.getElementById('storage').textContent = storage;
+    };
+</script>
+
+</body>
+</html>

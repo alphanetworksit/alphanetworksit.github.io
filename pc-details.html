@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>AlphaNetworks</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All PCs</a></li>
+            <li><a href="quiz.html">PC Recommendation</a></li>
+            <li><a href="Gaming PCs.html">Gaming PCs</a></li>
+            <li><a href="Workstation PCs.html">Workstation PCs</a></li>
+            <li><a href="Budgets PCs.html">Budget PCs</a></li>
+            <li><a href="cart.html">My Cart</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="about us.html">About Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="pc-details-container">
+    <div id="pc-detail">
+        <!-- Dynamic PC details will be inserted here -->
+    </div>
+
+    <h2>Similar PCs:</h2>
+    <div id="similar-pcs">
+        <!-- Dynamic similar PCs will be inserted here -->
+    </div>
+
+    <button id="add-to-cart">Add to Cart</button>
+</section>
+
+<script>
+    // Fetch PC details from the URL query
+    const urlParams = new URLSearchParams(window.location.search);
+    const pcName = urlParams.get("pc");
+
+    // Define all PCs data
+    const pcOptions = {
+        "ultimate-gamer": {
+            name: "Ultimate Gamer",
+            price: "$1,999",
+            description: "High-end gaming PC with RTX 4070, Ryzen 7, and 32GB RAM, 1TB SSD.",
+            specs: "GPU: RTX 4070, CPU: Ryzen 7, RAM: 32GB, Storage: 1TB SSD",
+            image: "gaming_pc.jpg",
+            notes: "Perfect for high-end gaming, 4K video rendering, and VR support."
+        },
+        "pro-workstation": {
+            name: "Pro Workstation",
+            price: "$2,499",
+            description: "Powerful workstation for video editing, 3D modeling, and AI tasks with RTX 4080, Intel i9, 64GB RAM, and 2TB NVMe SSD.",
+            specs: "GPU: RTX 4080, CPU: Intel i9, RAM: 64GB, Storage: 2TB NVMe SSD",
+            image: "workstation.jpg",
+            notes: "Ideal for professional creatives and engineers. Excellent for multitasking."
+        },
+        "budget-beast": {
+            name: "Budget Beast",
+            price: "$899",
+            description: "Affordable PC for everyday tasks and light gaming with GTX 1650, Ryzen 5, 16GB RAM, and 512GB SSD.",
+            specs: "GPU: GTX 1650, CPU: Ryzen 5, RAM: 16GB, Storage: 512GB SSD",
+            image: "budget_pc.jpg",
+            notes: "Great value for money for casual users and light gaming."
+        },
+        "ai-optimised": {
+            name: "AI Optimised",
+            price: "$3,529",
+            description: "High-performance AI workstation with Nvidia RTX 6000 ADA, Ryzen Threadripper 7960X, 256GB ECC RAM, 2TB NVMe SSD.",
+            specs: "GPU: Nvidia RTX 6000 ADA, CPU: Ryzen Threadripper 7960X, RAM: 256GB ECC, Storage: 2TB NVMe SSD",
+            image: "ai_pc.jpg",
+            notes: "Optimised for AI research and deep learning tasks. Supports large-scale data processing."
+        },
+        "audio-production": {
+            name: "Audio Production",
+            price: "$2,499",
+            description: "Optimised for audio production with Asus GeForce GT 730, Intel Core i5-14400, 16GB RAM, and 1TB Gen4 SSD.",
+            specs: "GPU: GeForce GT 730, CPU: Intel Core i5-14400, RAM: 16GB, Storage: 1TB Gen4 SSD",
+            image: "audio_pc.jpg",
+            notes: "Perfect for music production, sound editing, and audio processing."
+        }
+    };
+
+    // Get the selected PC details
+    const selectedPC = pcOptions[pcName];
+
+    // Insert the details into the page
+    if (selectedPC) {
+        document.getElementById("pc-detail").innerHTML = `
+            <img src="${selectedPC.image}" alt="${selectedPC.name}">
+            <h2>${selectedPC.name}</h2>
+            <p><strong>${selectedPC.price}</strong></p>
+            <p>${selectedPC.description}</p>
+            <h3>Specifications:</h3>
+            <p>${selectedPC.specs}</p>
+            <h3>Notes:</h3>
+            <p>${selectedPC.notes}</p>
+        `;
+
+        // Add to Cart functionality
+        document.getElementById("add-to-cart").addEventListener("click", function() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(selectedPC);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${selectedPC.name} added to cart!`);
+        });
+    } else {
+        document.getElementById("pc-detail").innerHTML = "<p>PC details not available.</p>";
+    }
+
+    // Display similar PCs (excluding the current one)
+    const similarPCs = Object.values(pcOptions).filter(pc => pc.name !== selectedPC.name);
+    const similarPCsHTML = similarPCs.map(pc => `
+        <div class="pc-card">
+            <img src="${pc.image}" alt="${pc.name}">
+            <h3>${pc.name}</h3>
+            <p>${pc.specs}</p>
+            <strong>${pc.price}</strong>
+            <a href="pc-details.html?pc=${pc.name.toLowerCase().replace(/\s+/g, '-')}" class="view-details">View Details</a>
+        </div>
+    `).join("");
+
+    document.getElementById("similar-pcs").innerHTML = similarPCsHTML;
+</script>
+
+</body>
+</html>

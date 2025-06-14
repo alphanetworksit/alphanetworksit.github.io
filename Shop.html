@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - AlphaNetworks Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>PC Shop</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop All PCs</a></li>
+        <li><a href="quiz.html">PC Recommendation</a></li>
+        <li><a href="Gaming PCs.html">Gaming PCs</a></li>
+        <li><a href="Workstation PCs.html">Workstation PCs</a></li>
+        <li><a href="Budgets PCs.html">Budget PCs</a></li>
+        <li><a href="cart.html">My Cart</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about us.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="shop-container">
+    <h2>Available PCs</h2>
+    <!-- Search input -->
+    <input type="text" id="searchBox" placeholder="Search for a PC..." onkeyup="filterPCs()">
+    <!-- Price Filter Dropdown -->
+    <select id="priceFilter" onchange="filterPCs()">
+       <option value="all">All Prices</option>
+       <option value="low">Under $1000</option>
+       <option value="medium">$1000 - $2000</option>
+       <option value="high">Over $2000</option>
+    </select>
+    <div class="shop-grid" id="shop-items">
+      <!-- PCs will be loaded dynamically -->
+    </div>
+  </section>
+  
+  <script>
+    // Define available PCs
+    const pcs = [
+      {
+        name: "Ultimate Gamer",
+        price: 1999,
+        specs: "RTX 4070, Ryzen 7, 32GB RAM, 1TB SSD",
+        image: "gaming_pc.jpg"
+      },
+      {
+        name: "Pro Workstation",
+        price: 2499,
+        specs: "RTX 4080, Intel i9, 64GB RAM, 2TB NVMe SSD",
+        image: "workstation.jpg"
+      },
+      {
+        name: "Budget Beast",
+        price: 899,
+        specs: "GTX 1650, Ryzen 5, 16GB RAM, 512GB SSD",
+        image: "budget_pc.jpg"
+      },
+      {
+        name: "Office Power",
+        price: 799,
+        specs: "Intel i5, 16GB RAM, 1TB HDD, Integrated Graphics",
+        image: "office_pc.jpg"
+      },
+      {
+        name: "AI Optimised",
+        price: 3529,
+        specs: "Nvidia RTX 6000 ADA, AMD Ryzen Threadripper 7960X, 256GB Micron ECC CL40 5600MHz, 2TB Gen5 Lexar NM1090 Pro NVMe",
+        image: "AI_pc.jpg"
+      },
+      {
+        name: "Audio Production",
+        price: 2499,
+        specs: "Graphics Card: Asus GeForce GT 730 Quad HDMI, CPU: Intel Core i5-14400, RAM: 16GB T-Force Vulcan Black 6000MHz, PSU: 650W MSI A650BN 80+ Bronze, SSD: 1TB Gen4 Silicon Power US75 M.2 NVME",
+        image: "Audio Production.jpg"
+      }
+    ];
+    
+    // Function to load all PCs
+    function loadShop() {
+      const container = document.getElementById("shop-items");
+      container.innerHTML = "";
+      pcs.forEach((pc, index) => {
+        container.innerHTML += `
+          <div class="pc-card">
+            <img src="${pc.image}" alt="${pc.name}">
+            <h3>${pc.name}</h3>
+            <p>${pc.specs}</p>
+            <strong>$${pc.price}</strong>
+            <button onclick='addToCart(${index})'>Add to Cart</button>
+            <a href="pc-details.html?pc=${pc.name.toLowerCase().replace(/\s+/g, '-')}" class="view-details">View Details</a>
+          </div>
+        `;
+      });
+    }
+    
+    // Function to filter PCs by search text and price range
+    function filterPCs() {
+      const searchValue = document.getElementById("searchBox").value.toLowerCase();
+      const priceFilter = document.getElementById("priceFilter").value;
+      const container = document.getElementById("shop-items");
+      container.innerHTML = "";
+      let found = false;
+      
+      pcs.forEach((pc, index) => {
+        // Check search filter
+        const matchesSearch = pc.name.toLowerCase().includes(searchValue) || pc.specs.toLowerCase().includes(searchValue);
+        
+        // Check price filter
+        let matchesPrice = true;
+        if (priceFilter !== "all") {
+          if (priceFilter === "low" && pc.price >= 1000) {
+            matchesPrice = false;
+          } else if (priceFilter === "medium" && (pc.price < 1000 || pc.price > 2000)) {
+            matchesPrice = false;
+          } else if (priceFilter === "high" && pc.price <= 2000) {
+            matchesPrice = false;
+          }
+        }
+        
+        if (matchesSearch && matchesPrice) {
+          container.innerHTML += `
+            <div class="pc-card">
+              <img src="${pc.image}" alt="${pc.name}">
+              <h3>${pc.name}</h3>
+              <p>${pc.specs}</p>
+              <strong>$${pc.price}</strong>
+              <button onclick="addToCart(${index})">Add to Cart</button>
+              <a href="pc-details.html?pc=${pc.name.toLowerCase().replace(/\s+/g, '-')}" class="view-details">View Details</a>
+            </div>
+          `;
+          found = true;
+        }
+      });
+      
+      if (!found) {
+        container.innerHTML = `<p style="text-align:center; font-size:18px; color:red;">No results found</p>`;
+      }
+    }
+    
+    // Function to add a PC to the cart
+    function addToCart(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(pcs[index]);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${pcs[index].name} added to cart!`);
+    }
+    
+    document.addEventListener("DOMContentLoaded", loadShop);
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
+ 

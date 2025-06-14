@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaNetworks - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>AlphaNetworks</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All PCs</a></li>
+            <li><a href="quiz.html">PC Recommendation</a></li>
+            <li><a href="Gaming PCs.html">Gaming PCs</a></li>
+            <li><a href="Workstation PCs.html">Workstation PCs</a></li>
+            <li><a href="Budgets PCs.html">Budget PCs</a></li>
+            <li><a href="cart.html">My Cart</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="about us.html">About Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h2>Welcome to AlphaNetworks!</h2>
+        <p>Discover the perfect PC tailored to your expectations. Browse our shop! Can't find one? Get a recommendation!</p>
+        <div class="buttons">
+            <a href="shop.html" class="btn">Shop Now</a>
+            <a href="quiz.html" class="btn-outline">Get a recommendation</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured PCs -->
+<section class="featured">
+    <h2>Popular Builds 🔥</h2>
+    <div class="shop-grid" id="featured-items">
+      <!-- Featured PC cards will be loaded dynamically -->
+    </div>
+  </section>
+  
+  <script>
+    // Define 3 featured PCs
+    const featuredPCs = [
+      {
+        name: "Ultimate Gamer",
+        price: "$1,999",
+        specs: "RTX 4070, Ryzen 7, 32GB RAM, 1TB SSD",
+        image: "gaming_pc.jpg",
+        detailsPage: "pc-details.html?pc=ultimate-gamer"
+      },
+      {
+        name: "Pro Workstation",
+        price: "$2,499",
+        specs: "RTX 4080, Intel i9, 64GB RAM, 2TB NVMe SSD",
+        image: "workstation.jpg",
+        detailsPage: "pc-details.html?pc=pro-workstation"
+      },
+      {
+        name: "Budget Beast",
+        price: "$899",
+        specs: "GTX 1650, Ryzen 5, 16GB RAM, 512GB SSD",
+        image: "budget_pc.jpg",
+        detailsPage: "pc-details.html?pc=budget-beast"
+      }
+    ];
+  
+    function loadFeatured() {
+      const container = document.getElementById("featured-items");
+      featuredPCs.forEach((pc, index) => {
+        container.innerHTML += `
+          <div class="pc-card">
+            <img src="${pc.image}" alt="${pc.name}">
+            <h3>${pc.name}</h3>
+            <p>${pc.specs}</p>
+            <strong>${pc.price}</strong>
+            <button onclick="addToCart(${index})">Add to Cart</button>
+            <a href="${pc.detailsPage}" class="view-details">View Details</a>
+          </div>
+        `;
+      });
+    }
+  
+    function addToCart(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(featuredPCs[index]);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${featuredPCs[index].name} added to cart!`);
+    }
+  
+    document.addEventListener("DOMContentLoaded", loadFeatured);
+  </script>
+  
+</section>
+
+</body>
+</html>

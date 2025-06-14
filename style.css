@@ -1,0 +1,373 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Impact', fantasy;
+}
+
+body {
+    background: linear-gradient(to right, #0f0f0f, #232323);
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    text-align: center;
+    background: url('hero-bg.jpg') no-repeat center center/cover;
+    color: white;
+}
+
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    background: linear-gradient(to right, #ff4d00, #ff2200);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+/* Buttons */
+.buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    background: #ff4d00;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 10px;
+}
+
+.btn:hover {
+    background: #ff2200;
+    transform: scale(1.05);
+}
+
+.btn-outline {
+    background: none;
+    border: 2px solid #ff4d00;
+    color: #ff4d00;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 10px;
+}
+
+.btn-outline:hover {
+    background: #ff4d00;
+    color: white;
+}
+
+/* Featured Products */
+.featured {
+    padding: 50px 20px;
+}
+
+.featured h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 260px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 1.4rem;
+}
+
+.product-card p {
+    font-size: 1.2rem;
+    color: #ff4d00;
+    font-weight: bold;
+}
+
+.results-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.pc-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    margin: auto;
+}
+
+.pc-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.pc-card h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.pc-card p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.pc-card strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.4rem;
+    color: #ff4d00;
+}
+
+.shop-container, .cart-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.shop-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pc-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 250px;
+}
+
+.pc-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.pc-card h3 {
+    font-size: 1.3rem;
+    margin: 10px 0;
+}
+
+.pc-card p {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.pc-card strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #ff4d00;
+}
+
+.pc-card button {
+    background: #ff4d00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.pc-card button:hover {
+    background: #e03e00;
+}
+
+.pc-card {
+    border: 1px solid #000000;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    background-color: #000000;
+}
+
+.pc-card img {
+    width: 150px;
+    height: auto;
+}
+
+.pc-card h3 {
+    margin: 10px 0;
+}
+
+.pc-card button {
+    background-color: #ff5555;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.pc-card button:hover {
+    background-color: #cc4444;
+}
+.pc-card {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.pc-card img {
+    width: 100%;
+    height: auto;
+}
+
+.pc-card h3 {
+    font-size: 1.5rem;
+}
+
+.pc-card .view-details {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pc-card .view-details:hover {
+    background-color: #0056b3;
+}
+
+#compare-container {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+img {
+    max-width: 100px;
+    height: auto;
+}
+#compare-btn {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#compare-btn:hover {
+    background-color: #0056b3;
+}
+
+
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Recommendation Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>PC Recommendation Quiz</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All PCs</a></li>
+            <li><a href="quiz.html">PC Recommendation</a></li>
+            <li><a href="Gaming PCs.html">Gaming PCs</a></li>
+            <li><a href="Workstation PCs.html">Workstation PCs</a></li>
+            <li><a href="Budgets PCs.html">Budget PCs</a></li>
+            <li><a href="cart.html">My Cart</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="quiz-container">
+    <form id="quizForm">
+        <!-- Question 1: Usage -->
+        <h2>What will you use your PC for?</h2>
+        <input type="radio" name="usage" value="gaming" id="gaming"> Gaming
+        <input type="radio" name="usage" value="workstation" id="workstation"> Workstation
+        <input type="radio" name="usage" value="budget" id="budget"> All on a Budget
+        <br><br>
+
+        <!-- Question 2: Budget -->
+        <h2>What is your budget?</h2>
+        <input type="radio" name="budget" value="high" id="high"> $2000 or higher
+        <input type="radio" name="budget" value="medium" id="medium"> $1000-$2000
+        <input type="radio" name="budget" value="low" id="low"> Below $1000
+        <br><br>
+
+        <!-- Question 3: Storage -->
+        <h2>How much storage do you need?</h2>
+        <input type="radio" name="storage" value="high" id="highStorage"> High
+        <input type="radio" name="storage" value="medium" id="mediumStorage"> Medium
+        <input type="radio" name="storage" value="low" id="lowStorage"> Low
+        <br><br>
+
+        <button type="button" onclick="submitQuiz()">Submit</button>
+    </form>
+</section>
+
+<script>
+    function submitQuiz() {
+        // Collect answers from the form
+        const usage = document.querySelector('input[name="usage"]:checked')?.value;
+        const budget = document.querySelector('input[name="budget"]:checked')?.value;
+        const storage = document.querySelector('input[name="storage"]:checked')?.value;
+
+        // Ensure all options are selected
+        if (!usage || !budget || !storage) {
+            alert("Please answer all required questions.");
+            return;
+        }
+
+        // Decision logic based on the quiz
+        let recommendedPC = "";
+
+        if (usage === "gaming") {
+            if (budget === "high") {
+                recommendedPC = "Ultimate Gamer (RTX 4070, Ryzen 7, 32GB RAM, 1TB SSD)";
+            } else if (budget === "medium") {
+                recommendedPC = "Gaming PC (RTX 3060, Ryzen 5, 16GB RAM, 512GB SSD)";
+            } else if (budget === "low") {
+                recommendedPC = "Budget Beast (GTX 1650, Ryzen 5, 16GB RAM, 512GB SSD)";
+            }
+        } else if (usage === "workstation") {
+            if (budget === "high") {
+                recommendedPC = "Pro Workstation (RTX 4080, Intel i9, 64GB RAM, 2TB NVMe SSD)";
+            } else if (budget === "medium") {
+                recommendedPC = "AI Optimised (Nvidia RTX 6000 ADA, Ryzen Threadripper 7960X, 256GB RAM, 2TB Gen5 NVMe SSD)";
+            } else if (budget === "low") {
+                recommendedPC = "Office Power (Intel i5, 16GB RAM, 1TB HDD, Integrated Graphics)";
+            }
+        } else if (usage === "budget") {
+            if (budget === "high") {
+                recommendedPC = "AI Optimised (Nvidia RTX 6000 ADA, Ryzen Threadripper 7960X, 256GB RAM, 2TB Gen5 NVMe SSD)";
+            } else if (budget === "medium") {
+                recommendedPC = "Audio Production (GT 730, Intel Core i5, 16GB RAM, 1TB SSD)";
+            } else if (budget === "low") {
+                recommendedPC = "Budget Beast (GTX 1650, Ryzen 5, 16GB RAM, 512GB SSD)";
+            }
+        }
+
+        // Redirect to results page with the recommended PC
+        window.location.href = `results.html?recommendedPC=${encodeURIComponent(recommendedPC)}&storage=${storage}`;
+    }
+</script>
+
+</body>
+</html>

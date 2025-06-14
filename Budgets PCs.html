@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget PCs - AlphaNetworks Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>PC Shop</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop All PCs</a></li>
+        <li><a href="quiz.html">PC Recommendation</a></li>
+        <li><a href="Gaming PCs.html">Gaming PCs</a></li>
+        <li><a href="Workstation PCs.html">Workstation PCs</a></li>
+        <li><a href="Budgets PCs.html">Budget PCs</a></li>
+        <li><a href="cart.html">My Cart</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="about us.html">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="shop-container">
+    <h2>Budget PCs</h2>
+    <!-- Search and Price Filter -->
+    <input type="text" id="searchBox" placeholder="Search for a PC..." onkeyup="filterPCs()">
+    <select id="priceFilter" onchange="filterPCs()">
+       <option value="all">All Prices</option>
+       <option value="low">Under $500</option>
+       <option value="medium">$500 - $1000</option>
+       <option value="high">Over $1000</option>
+    </select>
+    <div class="shop-grid" id="shop-items">
+      <!-- Budget PC cards will be loaded dynamically -->
+    </div>
+  </section>
+  
+  <script>
+    // Define the budget PCs array
+    const budgetPCs = [
+      {
+        name: "Budget Beast",
+        price: 899,
+        specs: "GTX 1650, Ryzen 5, 16GB RAM, 512GB SSD",
+        image: "budget_pc.jpg",
+        detailsPage: "pc-details.html?pc=budget-beast"
+      },
+      {
+        name: "Office Power",
+        price: 799,
+        specs: "Intel i5, 16GB RAM, 1TB HDD, Integrated Graphics",
+        image: "office_pc.jpg",
+        detailsPage: "pc-details.html?pc=office-power"
+      }
+      // You can add more budget PCs if available.
+    ];
+    
+    // Function to load budget PCs into the container with id "shop-items"
+    function loadShop() {
+      const container = document.getElementById("shop-items");
+      container.innerHTML = "";
+      budgetPCs.forEach((pc, index) => {
+        container.innerHTML += `
+          <div class="pc-card">
+            <img src="${pc.image}" alt="${pc.name}">
+            <h3>${pc.name}</h3>
+            <p>${pc.specs}</p>
+            <strong>$${pc.price}</strong>
+            <button onclick="addToCart(${index})">Add to Cart</button>
+            <a href="${pc.detailsPage}" class="view-details">View Details</a>
+          </div>
+        `;
+      });
+    }
+    
+    // Function to filter budget PCs by search text and price range
+    function filterPCs() {
+      const searchValue = document.getElementById("searchBox").value.toLowerCase();
+      const priceFilter = document.getElementById("priceFilter").value;
+      const container = document.getElementById("shop-items");
+      container.innerHTML = "";
+      let found = false;
+      
+      budgetPCs.forEach((pc, index) => {
+        // Check if PC matches search query (name or specs)
+        const matchesSearch = pc.name.toLowerCase().includes(searchValue) || pc.specs.toLowerCase().includes(searchValue);
+        
+        // Check price filter (if not "all")
+        let matchesPrice = true;
+        if (priceFilter !== "all") {
+          if (priceFilter === "low" && pc.price >= 500) {
+            matchesPrice = false;
+          } else if (priceFilter === "medium" && (pc.price < 500 || pc.price > 1000)) {
+            matchesPrice = false;
+          } else if (priceFilter === "high" && pc.price <= 1000) {
+            matchesPrice = false;
+          }
+        }
+        
+        if (matchesSearch && matchesPrice) {
+          container.innerHTML += `
+            <div class="pc-card">
+              <img src="${pc.image}" alt="${pc.name}">
+              <h3>${pc.name}</h3>
+              <p>${pc.specs}</p>
+              <strong>$${pc.price}</strong>
+              <button onclick="addToCart(${index})">Add to Cart</button>
+              <a href="${pc.detailsPage}" class="view-details">View Details</a>
+            </div>
+          `;
+          found = true;
+        }
+      });
+      
+      if (!found) {
+        container.innerHTML = `<p style="text-align:center; font-size:18px; color:red;">No results found</p>`;
+      }
+    }
+    
+    // Function to add a PC to the cart (using localStorage)
+    function addToCart(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(budgetPCs[index]);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${budgetPCs[index].name} added to cart!`);
+    }
+    
+    document.addEventListener("DOMContentLoaded", loadShop);
+  </script>
+</body>
+</html>
